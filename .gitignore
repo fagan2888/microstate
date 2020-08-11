@@ -1,0 +1,16 @@
+microstate/state_config_private.py
+microstate/state_test_config_private.py
+microstate/*private*
+microstate/*private.py
+.idea/*
+microstate.egg-info/*
+*private.py
+tmp_*.json
+*x.py
+tests/tmp*
+tests/__pycache*
+rediz.egg-info
+rediz/__pycache__
+build
+dist
+__pycache__
