@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="microstate",
-    version="0.0.1",
+    version="0.0.2",
     description="Experimental standalone state storage service for crawlers at www.microprediction.org",
     long_description=README,
     long_description_content_type="text/markdown",
