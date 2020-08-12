@@ -48,3 +48,9 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+      env:
+        REDIS_TEST_CONFIG_URL: ${{secrets.REDIS_TEST_CONFIG_URL}}
+        REDIS_TEST_CONFIG_FAILOVER_URL': ${{secrets.REDIS_TEST_CONFIG_FAILOVER_URL}}
+        REDIS_CONFIG_URL': ${{secrets.REDIS_CONFIG_URL}}
+        REDIS_CONFIG_FAILOVER_URL': ${{secrets.REDIS_CONFIG_FAILOVER_URL}}
+
