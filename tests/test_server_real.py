@@ -22,8 +22,9 @@ TEST_VALUES = [{'frogs legs': 11},
                  ('sam', {'mary': 11, 'bob': 32})]
 
 
-def test_server():
-    server = MicroStateServer(decode_responses=True)
+def dont_test_server():
+    """ Test on actual redis instance """
+    server = MicroStateServer(**REDIS_TEST_CONFIG)
     k = random.choice(list(range(10)))
     for value in TEST_VALUES:
         res1 = server.set(write_key=TEST_WRITE_KEY, k=0, value=value)

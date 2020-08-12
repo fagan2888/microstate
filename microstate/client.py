@@ -1,30 +1,28 @@
 from microstate.conventions import MicroStateConventions
 import requests
 
+# Simple CRD storage tied to a write key
+
 
 class MicroStateWriter(MicroStateConventions):
 
     def __init__(self, write_key, **kwargs):
         super().__init__(**kwargs)
         self.write_key = write_key
-        self.state_base_url = self.base_url.replace('devapi', 'state').replace('api','state')
-          # For now, unit this is brought into the main API
+        self.method = 'state'
 
-    def delete_state(self, k:int):
-        method = 'delete_state'
-        res = requests.get(self.state_base_url + '/' + method + '/' + self.write_key, params={'k': k})
+    def delete(self, k:int = 0):
+        res = requests.delete(self.base_url + '/' + self.method + '/' + self.write_key, params={'k': k})
         if res.status_code == 200:
             return res.json()
 
-    def get_state(self, k: int):
-        method = 'get_state'
-        res = requests.get(self.state_base_url + '/' + method + '/' + self.write_key, data={'k': k})
+    def get(self, k: int = 0):
+        res = requests.get(self.base_url + '/' + self.method + '/' + self.write_key, data={'k': k})
         if res.status_code == 200:
-            return res.json()
+            return self.from_redis_value(res.json())
 
-    def set_state(self, k: int, value):
-        method = 'set_state'
-        params = {'k': k, 'value': value}
-        res = requests.put(self.state_base_url + '/' + method + '/' + self.write_key, params=params)
+    def set(self, value, k: int = 0):
+        params = {'k': k, 'value': self.to_redis_value(value)}
+        res = requests.put(self.base_url + '/' + self.method + '/' + self.write_key, params=params)
         if res.status_code == 200:
             return res.json()

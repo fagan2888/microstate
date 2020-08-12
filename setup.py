@@ -23,7 +23,7 @@ setup(
     ],
     packages=["microstate"],
     test_suite='pytest',
-    tests_require=['pytest', 'microconventions', 'fakeredis'],
+    tests_require=['pytest', 'microconventions', 'fakeredis','deepdiff'],
     include_package_data=True,
     install_requires=["microconventions>=0.0.7", "redis","fakeredis", "numpy", "pathlib","requests"],
     entry_points={

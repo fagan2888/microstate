@@ -44,11 +44,11 @@ class MicroStateServer(StateServerConventions):
         return {'operation': 'delete_state', 'result': execut}
 
     def set(self, write_key, k, value):
-        max_bytes = self.state_max_size(write_key=write_key)
+        max_bytes = self.state_max_size(write_key=write_key,k=k)
         if max_bytes:
             value_bytes = sys.getsizeof(value)
             if value_bytes <= max_bytes:
-                data = self.jsonify(value=value)
+                data = self.to_redis_value(value=value)
                 if data:
                     location = self.state_location(write_key=write_key, k=k)
                     ttl = self.state_ttl(write_key=write_key)

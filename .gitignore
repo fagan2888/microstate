@@ -1,4 +1,4 @@
-microstate/state_config_private.py
+microstate/redis_env_private.py
 microstate/state_test_config_private.py
 microstate/*private*
 microstate/*private.py
