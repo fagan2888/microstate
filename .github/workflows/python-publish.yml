@@ -30,6 +30,7 @@ jobs:
         pip install requests
         pip install deepdiff
         pip install pytest
+        pip install getjson
     - name: Build and publish
       env:
         TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}

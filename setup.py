@@ -25,7 +25,7 @@ setup(
     test_suite='pytest',
     tests_require=['pytest', 'microconventions', 'fakeredis','deepdiff'],
     include_package_data=True,
-    install_requires=["microconventions>=0.0.7", "redis","fakeredis", "numpy", "pathlib","requests"],
+    install_requires=["microconventions>=0.0.7", "redis","fakeredis", "numpy", "pathlib","requests","getjson"],
     entry_points={
         "console_scripts": [
             "microstate=microstate.__main__:main",

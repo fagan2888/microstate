@@ -35,6 +35,7 @@ jobs:
         pip install pathlib
         pip install requests
         pip install deepdiff
+        pip install getjson
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
