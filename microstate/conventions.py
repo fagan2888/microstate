@@ -1,24 +1,6 @@
 from microconventions import MicroConventions
 from microconventions.value_conventions import ValueConventions
 import json
-import numpy as np
-from json.decoder import JSONDecodeError
-
-
-try:
-    has_nan = ValueConventions.has_nan
-except AttributeError:
-    # TODO: Toss this after microconventions 0.1.0 pushed
-    def has_nan(obj):
-        if isinstance(obj, (list,tuple)):
-            return any(map(has_nan, obj))
-        elif isinstance(obj, dict):
-            return has_nan(list(obj.values())) or has_nan(list(obj.keys()))
-        else:
-            try:
-                return np.isnan(obj)
-            except (JSONDecodeError, TypeError):
-                return False
 
 
 class MicroStateConventions(MicroConventions):
@@ -33,7 +15,7 @@ class MicroStateConventions(MicroConventions):
         if ValueConventions.is_valid_value(value):
             return value
         elif isinstance(value, (list,dict,tuple)):
-            if has_nan(value):
+            if ValueConventions.has_nan(value):
                 raise Exception('Values with NaN cannot be stored, sorry')
             else:
                 try:
