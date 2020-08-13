@@ -43,3 +43,11 @@ retrieving the data.
 
 Tuples can be stored but will be converted to list. 
     
+### Memory limits 
+
+Assuming a write key of difficulty at least 11:
+
+    location  0      holds    320 kb
+    locations 1-319  hold       1 kb each 
+    
+ 

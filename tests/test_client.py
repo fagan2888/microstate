@@ -20,8 +20,6 @@ TEST_VALUES = [ ('sam',17),{'frogs legs': 11},
                  ('sam', {'mary': 11, 'bob': 32})]
 
 
-
-
 def test_client():
     """ Test on actual redis instance """
     for base_url in BASE_URLS:

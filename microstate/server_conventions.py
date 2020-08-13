@@ -16,10 +16,10 @@ except ImportError:
 
 class StateServerConventions(MicroStateConventions):
 
-    def __init__(self, obscurity=None, max_bytes=400, max_locations=200, **kwargs):
+    def __init__(self, obscurity=None, max_kb=640, max_locations=320, **kwargs):
         super().__init__(**kwargs)
         self._obscurity = (obscurity or "obscure") + self.SEP
-        self.MAX_BYTES = max_bytes
+        self.MAX_BYTES = int( max_kb*1000 / (2*max_locations) )
         self.MAX_LOCATIONS = max_locations
 
     def state_location(self, write_key:str, k:int) -> str:
