@@ -22,7 +22,7 @@ TEST_VALUES = [{'frogs legs': 11},
                  ('sam', {'mary': 11, 'bob': 32})]
 
 
-def dont_test_server():
+def test_server():
     """ Test on actual redis instance """
     server = MicroStateServer(**REDIS_TEST_CONFIG)
     k = random.choice(list(range(10)))

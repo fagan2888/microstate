@@ -1,5 +1,5 @@
 import pathlib
-from setuptools import setup, find_packages
+from setuptools import setup
 
 HERE = pathlib.Path(__file__).parent
 
@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="microstate",
-    version="0.0.4",
+    version="0.0.5",
     description="Experimental standalone state storage service for crawlers at www.microprediction.org",
     long_description=README,
     long_description_content_type="text/markdown",

@@ -5,11 +5,11 @@ import numpy as np
 
 
 try:
-    from microconventions.redis_conventions import has_nan
-except ImportError:
+    has_nan = ValueConventions.has_nan
+except AttributeError:
     # TODO: Toss this after microconventions 0.1.0 pushed
     def has_nan(obj):
-        if isinstance(obj, list):
+        if isinstance(obj, (list,tuple)):
             return any(map(has_nan, obj))
         elif isinstance(obj, dict):
             return has_nan(list(obj.values())) or has_nan(list(obj.keys()))
@@ -31,7 +31,7 @@ class MicroStateConventions(MicroConventions):
         # TODO: We can remove this after MicroConventions 0.1.0 is pushed
         if ValueConventions.is_valid_value(value):
             return value
-        elif ValueConventions.is_dict_value(value) or ValueConventions.is_vector_value(value):
+        elif isinstance(value, (list,dict,tuple)):
             if has_nan(value):
                 raise Exception('Values with NaN cannot be stored, sorry')
             else:

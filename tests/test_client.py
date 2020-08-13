@@ -3,6 +3,7 @@ import random
 from microstate.client import MicroStateWriter
 
 TEST_WRITE_KEY = REDIS_TEST_CONFIG['SHOOTABLE_CAT']
+BASE_URLS = ['https://devapi.microprediction.org']
 
 try:
     from microconventions.equality_conventions import deep_equal
@@ -12,24 +13,27 @@ except ImportError:
     def deep_equal(obj1, obj2):
         return not DeepDiff(obj1, obj2, ignore_order=True)
 
-TEST_VALUES = [{'frogs legs': 11},
+TEST_VALUES = [ ('sam',17),{'frogs legs': 11},
                  11,
                  'dog',
                  3.14156,
-                 ('sam', 17),
                  ('sam', {'mary': 11, 'bob': 32})]
+
+
 
 
 def dont_test_client():
     """ Test on actual redis instance """
-    client = MicroStateWriter(write_key=TEST_WRITE_KEY)
-    k = random.choice(list(range(10)))
-    for value in TEST_VALUES:
-        res1 = client.set(k=k, value=value)
-        value_back = client.get(k=k)
-        if isinstance(value,(list,dict,tuple,str)):
-            assert deep_equal(value, value_back)
-        elif isinstance(value, int):
-            assert int(value_back) == value
-        elif isinstance(value, float):
-            assert abs(float(value_back) - value) < 1e-6
+    for base_url in BASE_URLS:
+        client = MicroStateWriter(write_key=TEST_WRITE_KEY,base_url=base_url)
+        k = random.choice(list(range(10)))
+        for value in TEST_VALUES:
+            res1 = client.set(k=k, value=value)
+            assert res1['success']
+            value_back = client.get(k=k)
+            if isinstance(value,(list,dict,tuple,str)):
+                assert deep_equal(value, value_back)
+            elif isinstance(value, int):
+                assert int(value_back) == value
+            elif isinstance(value, float):
+                assert abs(float(value_back) - value) < 1e-6

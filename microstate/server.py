@@ -62,3 +62,6 @@ class MicroStateServer(StateServerConventions):
                 return {'operation': 'set_state', 'success': 0, 'message': 'value too large', 'max_bytes': max_bytes}
         else:
             return {'operation': 'set_state', 'success': 0, 'message': 'invalid write key', 'max_bytes': max_bytes}
+
+
+MicroStateServer.put = MicroStateServer.set
