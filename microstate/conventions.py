@@ -2,6 +2,7 @@ from microconventions import MicroConventions
 from microconventions.value_conventions import ValueConventions
 import json
 import numpy as np
+from json.decoder import JSONDecodeError
 
 
 try:
@@ -16,7 +17,7 @@ except AttributeError:
         else:
             try:
                 return np.isnan(obj)
-            except:
+            except (JSONDecodeError, TypeError):
                 return False
 
 
@@ -28,7 +29,6 @@ class MicroStateConventions(MicroConventions):
     @staticmethod
     def to_redis_value(value):
         """ Used by MicroStateWriter prior to storage in redis database """
-        # TODO: We can remove this after MicroConventions 0.1.0 is pushed
         if ValueConventions.is_valid_value(value):
             return value
         elif isinstance(value, (list,dict,tuple)):
