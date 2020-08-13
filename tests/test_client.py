@@ -22,7 +22,7 @@ TEST_VALUES = [ ('sam',17),{'frogs legs': 11},
 
 
 
-def dont_test_client():
+def test_client():
     """ Test on actual redis instance """
     for base_url in BASE_URLS:
         client = MicroStateWriter(write_key=TEST_WRITE_KEY,base_url=base_url)
@@ -31,8 +31,10 @@ def dont_test_client():
             res1 = client.set(k=k, value=value)
             assert res1['success']
             value_back = client.get(k=k)
-            if isinstance(value,(list,dict,tuple,str)):
+            if isinstance(value,(list,dict,str)):
                 assert deep_equal(value, value_back)
+            elif isinstance(value, tuple):
+                assert deep_equal(value,tuple(value_back))
             elif isinstance(value, int):
                 assert int(value_back) == value
             elif isinstance(value, float):

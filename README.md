@@ -35,6 +35,11 @@ Retrieve data with a location index
     
 ### Other data types
 
-In addition to dict, data may be str, int or float. However it will be stored internally as a binary string. Be aware of this when
+In addition to dict, or list, data may be str, int or float. 
+However it will be stored internally as a binary string. Be aware of this when
 retrieving the data. 
+
+### Partial support for tuple
+
+Tuples can be stored but will be converted to list. 
     
