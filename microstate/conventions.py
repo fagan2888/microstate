@@ -29,6 +29,7 @@ class MicroStateConventions(MicroConventions):
     @staticmethod
     def to_redis_value(value):
         """ Used by MicroStateWriter prior to storage in redis database """
+        # This may change if we move to using JSON redis module
         if ValueConventions.is_valid_value(value):
             return value
         elif isinstance(value, (list,dict,tuple)):

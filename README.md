@@ -2,12 +2,14 @@
 
 Simple REST state storage tied to a write key
 
-## Creating a state writer 
+### You need a key 
 
     from microstate import MicroStateWriter
-    from microprediction import new_key
-    write_key = new_key(difficulty=11) # Takes a while! 
-    msw = MicroStateWriter(write_key=write_key)
+    write_key = MicroStateWriter.create_key(difficulty=11) # Takes a while! 
+   
+to instantiate a writer
+    
+    writer = MicroStateWriter(write_key=write_key)
 
 ### Usage pattern 1
 
@@ -17,27 +19,28 @@ Assume we have data taking the form of a dictionary
     
 Store data: 
 
-    msw.set(value=data)
+    writer.set(value=data)
     
 Retrieve data:
 
-    data = msw.get()     
+    data = writer.get()     
     
 ### Usage pattern 2 (using a logical memory location from 0 to 99)
 
 Store data with a location index
 
-    msw.set(value=data, k=34)
+    writer.set(value=data, k=34)
     
 Retrieve data with a location index
 
-    data = msw.get(k=34) 
+    data = writer.get(k=34) 
     
-### Other data types
+### Other data types (caution!)
 
-In addition to dict, or list, data may be str, int or float. 
-However it will be stored internally as a binary string. Be aware of this when
-retrieving the data. 
+- Tuples will be converted to lists
+- int, float to string
+
+To preserve types use dict or list 
 
 ### Partial support for tuple
 
