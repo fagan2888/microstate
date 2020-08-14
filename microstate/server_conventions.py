@@ -16,8 +16,9 @@ except ImportError:
 
 class StateServerConventions(MicroStateConventions):
 
-    def __init__(self, obscurity=None, max_kb=640, max_locations=320, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, obscurity=None, max_kb=640, max_locations=320,  **kwargs):
+        super().__init__(num_predictions=1,delays=[1],min_balance=-1,min_len=12,**kwargs)
+             # Passing option args to MicroConventions prevents an http:// call to config
         self._obscurity = (obscurity or "obscure") + self.SEP
         self.MAX_BYTES = int(max_kb * 1000 / (2 * max_locations))
         self.MAX_LOCATIONS = max_locations

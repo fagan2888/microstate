@@ -1,7 +1,9 @@
 from microstate.conventions import MicroStateConventions
 import requests
 
-# Simple CRD storage tied to a write key
+# Standalone, dead simple CRD storage tied to a write key
+# This capability is also available in the MicroWriter class
+# in the microprediction package (set_state, get_state, delete_state)
 
 
 class MicroStateWriter(MicroStateConventions):

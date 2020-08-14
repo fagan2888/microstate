@@ -5,13 +5,8 @@ from microstate.client import MicroStateWriter
 TEST_WRITE_KEY = REDIS_TEST_CONFIG['SHOOTABLE_CAT']
 BASE_URLS = ['https://devapi.microprediction.org']
 
-try:
-    from microconventions.equality_conventions import deep_equal
-except ImportError:
-    from deepdiff import DeepDiff
-    # TODO: Discard after microconventions 0.1.0 released
-    def deep_equal(obj1, obj2):
-        return not DeepDiff(obj1, obj2, ignore_order=True)
+
+deep_equal = MicroStateWriter.deep_equal
 
 TEST_VALUES = [ ('sam',17),{'frogs legs': 11},
                  11,
